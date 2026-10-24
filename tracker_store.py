@@ -16,6 +16,7 @@ import time
 import uuid
 
 import config
+import private_profile
 import util
 
 DIR = os.path.join(config.LIVE_DOCS_DIR, "tracker")
@@ -64,10 +65,7 @@ DEFAULT_METRICS = [
     _m("guitar", "Guitar minutes", "🎸", "minutes", "Hobbies", {"d": 90}, "d", "bar", unit="min", quick=[15, 30, 60], aliases=["guitar mins"]),
     _m("reading", "Dedicated reading time", "📖", "minutes", "Hobbies", {"d": 30}, "d", "bar", unit="min", quick=[10, 20, 30], aliases=["read", "reading mins"]),
     _m("songs_danced", "Songs danced", "💃", "count", "Hobbies", {}, "d", "bar", quick=[1, 3], aliases=["songs", "dance"]),
-    # private (hidden in Demo mode)
-    _m("private_a", "Oral orgasms given", "🔒", "count", "Private", {}, "w", "bar", quick=[1], private=True, aliases=["oral"]),
-    _m("private_b", "Times I came", "🔒", "count", "Private", {}, "w", "bar", quick=[1], private=True, aliases=["came", "cum"]),
-]
+] + private_profile.metric_defaults()
 
 
 def tracker_today():

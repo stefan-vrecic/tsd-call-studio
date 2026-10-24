@@ -6,6 +6,7 @@
 // the server only serves the page for that path if a manifest for that
 // name actually exists, so finding it here should always succeed).
 (async function init() {
+  await loadClosers();
   initPeopleFilter();
   initClips();
   await loadPeople();

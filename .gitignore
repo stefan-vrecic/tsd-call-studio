@@ -19,6 +19,7 @@ live_docs/
 # Local-only account destinations for the optional desktop wrapper.
 desktop/site-config.local.json
 local_config.json
+private_profile.local.json
 _drive_inbox.json
 
 # Android / desktop build output

@@ -64,6 +64,7 @@ document.querySelectorAll('.sort-btn').forEach(btn => {
 async function loadPeople() {
   const res = await fetch('/api/people');
   people = await res.json();
+  [...new Set(people.map(p => p.closer).filter(Boolean))].sort().forEach(addCloserName);
   const studioCount = document.getElementById('studio-call-count');
   if (studioCount) studioCount.textContent = people.length;
   applySortToPeople();
@@ -176,16 +177,20 @@ function applyPeopleSearch() {
   const count = document.getElementById('people-filter-count');
   if (count) count.textContent = (peopleFilter || q || !showCalls || !showLoom || onlyCpd) ? `${shown} of ${total}` : '';
 }
-// Named closers come from the same list as the right-click menu (CLOSERS, defined in context-menu.js --
-// which loads after this file, so the dropdown is filled in at start-up rather than here)
-function initPeopleFilter() {
+// Closer names come from ignored local defaults and from the user's saved call records.
+function refreshPeopleCloserFilter() {
   const select = document.getElementById('closer-filter');
-  const group = document.createElement('optgroup');
-  group.label = 'By closer';
+  if (!select) return;
+  let group = select.querySelector('optgroup');
+  if (!group) { group = document.createElement('optgroup'); group.label = 'By closer'; select.appendChild(group); }
+  group.replaceChildren();
   CLOSERS.forEach(name => { const o = document.createElement('option'); o.value = 'closer:' + name; o.textContent = name; group.appendChild(o); });
-  select.appendChild(group);
   select.value = peopleFilter;
   if (select.value !== peopleFilter) { peopleFilter = ''; select.value = ''; } // a saved closer that no longer exists
+}
+function initPeopleFilter() {
+  const select = document.getElementById('closer-filter');
+  refreshPeopleCloserFilter();
   select.addEventListener('change', () => {
     peopleFilter = select.value;
     csStore('peopleFilter', peopleFilter);

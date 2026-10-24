@@ -13,6 +13,7 @@ import clips
 import config
 import pipeline
 import settings
+import private_profile
 import followup
 import srt
 import transcript_sync
@@ -71,6 +72,10 @@ def people(handler):
             people.append(p)
     handler._json(200, people)
     return
+
+
+def closers(handler):
+    handler._json(200, {"closers": private_profile.closers()})
 
 
 def transcript(handler):

@@ -77,6 +77,7 @@ GET = [
     (exact('/'), calls.index_page),
     (calls.is_call_page, calls.call_page),
     (exact('/api/people'), calls.people),
+    (exact('/api/closers'), calls.closers),
     (exact('/api/transcript'), calls.transcript),
     (exact('/api/transcript-live'), calls.transcript_live),
     (exact('/api/transcript-raw'), calls.transcript_raw),

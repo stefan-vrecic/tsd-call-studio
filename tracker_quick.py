@@ -9,6 +9,7 @@ QUESTIONS is the list shown on the tab, word for word as Stefan wrote it. parse(
 Used by routes/tracker.py (/api/tracker-quick, the tab's box) and tracker_cli.py quick (chat).
 """
 import re
+import private_profile
 
 QUESTIONS = [
     ("Sales", [("taken", "calls_taken"), ("closed", "closed"), ("followups", "followups"), ("trainingHours", "sales_training")]),
@@ -17,8 +18,7 @@ QUESTIONS = [
     ("Body", [("calories", "calories"), ("steps", "steps"), ("bw", "bodyweight"), ("mobility", "mobility")]),
     ("Mind", [("sleep", "sleep_quality"), ("enjoyment", "enjoyment"), ("meditation", "meditation"), ("affirmations", "affirmations"), ("church", "church")]),
     ("Hobbies", [("guitarMins", "guitar"), ("songsDanced", "songs_danced"), ("minsRead", "reading")]),
-    ("Private", [("oralOrgasms", "private_a"), ("ejaculation", "private_b")]),
-]
+] + private_profile.questions()
 
 _norm = lambda s: re.sub(r"[^a-z0-9]", "", s.lower())
 KEYS = {_norm(word): target for _, items in QUESTIONS for word, target in items}
@@ -31,8 +31,8 @@ KEYS.update({
     "stretch": "mobility", "stretches": "mobility", "stretching": "mobility", "dynamicstretch": "mobility",
     "med": "meditation", "affirms": "affirmations", "affirmation": "affirmations",
     "guitar": "guitar", "songs": "songs_danced", "dance": "songs_danced", "danced": "songs_danced", "read": "reading", "reading": "reading",
-    "oral": "private_a", "ejac": "private_b", "came": "private_b",
 })
+KEYS.update({_norm(word): target for word, target in private_profile.quick_aliases().items()})
 
 _ITEM = re.compile(
     r"([a-zA-Z][a-zA-Z \-]*?)\s*[:=]?\s*(-?\d+(?:\.\d+)?)(\s*k(?![a-z]))?"

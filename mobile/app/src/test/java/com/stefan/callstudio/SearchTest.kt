@@ -25,8 +25,8 @@ class SearchTest {
 
     private fun row(section: String, at: Double, end: Double? = null) = Row(ts = "x", seconds = at, end = end, section = section, desc = "d")
 
-    private val a = call("a", 100.0, true, "Alex Ives", row("Greeting", 0.0, 60.0), row("Desire", 60.0, 180.0), row("FCOI", 180.0))
-    private val b = call("b", 300.0, false, "Eoghan", row("Desire", 10.0, 90.0), row("Desire", 200.0, 260.0))
+    private val a = call("a", 100.0, true, "Closer One", row("Greeting", 0.0, 60.0), row("Desire", 60.0, 180.0), row("FCOI", 180.0))
+    private val b = call("b", 300.0, false, "Closer Two", row("Desire", 10.0, 90.0), row("Desire", 200.0, 260.0))
     private val c = call("c", 200.0, null, "", row("desire and more", 5.0, 50.0), row("Wobble Toolkit", 50.0))
     private val calls = listOf(a, b, c)
     private val none = { _: Call -> false }
@@ -54,15 +54,15 @@ class SearchTest {
     }
 
     @Test fun closersAreMultiSelect() {
-        val one = searchSections(calls, "desire", Filters(closers = setOf("Eoghan")), none)
+        val one = searchSections(calls, "desire", Filters(closers = setOf("Closer Two")), none)
         assertEquals(2, one.size)
-        val two = searchSections(calls, "desire", Filters(closers = setOf("Eoghan", "Alex Ives")), none)
+        val two = searchSections(calls, "desire", Filters(closers = setOf("Closer Two", "Closer One")), none)
         assertEquals(3, two.size)
         // ignoreClosers gives the counts the checkboxes show
-        val counts = closerCounts(searchSections(calls, "desire", Filters(closers = setOf("Eoghan")), none, ignoreClosers = true).map { it.call })
-        assertEquals(1, counts.first { it.first == "Alex Ives" }.second)
-        assertEquals(2, counts.first { it.first == "Eoghan" }.second)
-        assertEquals(0, counts.first { it.first == "Shaun" }.second)
+        val counts = closerCounts(searchSections(calls, "desire", Filters(closers = setOf("Closer Two")), none, ignoreClosers = true).map { it.call })
+        assertEquals(1, counts.first { it.first == "Closer One" }.second)
+        assertEquals(2, counts.first { it.first == "Closer Two" }.second)
+        assertEquals(2, counts.size)
     }
 
     @Test fun favouritesFilter() {

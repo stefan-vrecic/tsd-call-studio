@@ -14,7 +14,20 @@ document.getElementById('table-wrap').addEventListener('contextmenu', (e) => {
 });
 
 // --- right-click "was this call mine or someone else's" / favourite / closer ---
-const CLOSERS = ['Alex Ives', 'James Gemmell', 'David Fitzpatrick', 'Eoghan', 'Shaun', 'Alex Neilan'];
+const CLOSERS = [];
+function addCloserName(name) {
+  name = String(name || '').trim();
+  if (name && !CLOSERS.includes(name)) {
+    CLOSERS.push(name);
+    if (typeof refreshPeopleCloserFilter === 'function') refreshPeopleCloserFilter();
+  }
+}
+async function loadClosers() {
+  try {
+    const data = await csJSON('/api/closers');
+    (data.closers || []).forEach(addCloserName);
+  } catch (e) { /* call records still supply names when local defaults are unavailable */ }
+}
 
 document.getElementById('people-list').addEventListener('contextmenu', (e) => {
   const li = e.target.closest('li');
@@ -35,6 +48,7 @@ document.getElementById('people-list').addEventListener('contextmenu', (e) => {
     { text: '📌 Save in note-tracker…', title: "Saves this call's link in the Content tab and asks for a note", onClick: () => saveInNoteTracker(name) },
     '-', { label: 'Closer' },
     ...CLOSERS.map(c => ({ text: c, checked: p && p.closer === c, onClick: () => setCloser(name, c) })),
+    { text: '＋ Add closer…', onClick: () => { const closer = prompt('Closer name:', p && p.closer || ''); if (closer && closer.trim()) setCloser(name, closer.trim()); } },
   ]);
 });
 
@@ -77,7 +91,7 @@ async function editHighlight(name) {
 }
 
 async function setCloser(name, closer) {
-  await markPerson(name, `/api/set-closer?person=${encodeURIComponent(name)}&closer=${encodeURIComponent(closer)}`, { closer });
+  if (await markPerson(name, `/api/set-closer?person=${encodeURIComponent(name)}&closer=${encodeURIComponent(closer)}`, { closer })) addCloserName(closer);
 }
 
 async function toggleFavourite(name, currentlyFavourite) {

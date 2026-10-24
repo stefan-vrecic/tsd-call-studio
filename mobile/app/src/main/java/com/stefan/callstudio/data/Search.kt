@@ -24,14 +24,10 @@ fun Call.passes(f: Filters, isFavourite: Boolean, ignoreClosers: Boolean = false
     return true
 }
 
-/** The closers from the Mac's right-click menu, so they always show (with a count of 0) even before any call has one. */
-val KNOWN_CLOSERS = listOf("Alex Ives", "James Gemmell", "David Fitzpatrick", "Eoghan", "Shaun", "Alex Neilan")
-
-/** How many times each closer appears in [closers], for the "Alex Ives (12)" checkboxes. Known closers first, then any others found. */
+/** Show only names present in this device's locally imported calls. */
 fun closerCountsFrom(closers: List<String>): List<Pair<String, Int>> {
     val counts = closers.filter { it.isNotBlank() }.groupingBy { it }.eachCount()
-    val others = counts.keys.filter { it !in KNOWN_CLOSERS }.sorted()
-    return (KNOWN_CLOSERS + others).map { it to (counts[it] ?: 0) }
+    return counts.keys.sorted().map { it to (counts[it] ?: 0) }
 }
 
 fun closerCounts(calls: List<Call>): List<Pair<String, Int>> = closerCountsFrom(calls.map { it.closer })
