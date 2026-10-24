@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Call Studio</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #dce4ef; }
+  #bar { height: 38px; display: flex; align-items: center; gap: 8px; padding: 0 12px 0 84px; background: #fff; border-bottom: 1px solid #b0bed3; -webkit-app-region: drag; font-size: 13px; }
+  #bar button { -webkit-app-region: no-drag; border: 1px solid #d0d7e2; background: #fff; border-radius: 6px; padding: 4px 10px; font-size: 13px; cursor: pointer; }
+  #bar button:hover { background: #eff6ff; }
+  #bar button.on { background: #2563eb; color: #fff; border-color: #2563eb; }
+  #bar .spacer { flex: 1; }
+  #bar b { font-size: 14px; }
+  #split { display: flex; height: calc(100% - 38px); }
+  #split.swapped { flex-direction: row-reverse; }
+  #studio-wrap { flex: 1 1 0; min-width: 320px; display: flex; }
+  #studio { flex: 1; border: 0; width: 100%; background: #fff; }
+  #divider { flex: 0 0 12px; cursor: col-resize; display: none; align-items: center; justify-content: center; background: #dce4ef; border-left: 1px solid #b0bed3; border-right: 1px solid #b0bed3; }
+  #divider span { width: 4px; height: 44px; border-radius: 2px; background: #6b7280; opacity: .55; }
+  #divider:hover span, #split.dragging #divider span { opacity: 1; background: #2563eb; }
+  #side { flex: 0 0 var(--side-w, 42%); min-width: 300px; display: none; background: #fff; }
+  #side webview { flex: 1; display: none; height: 100%; width: 100%; }
+  #split.open #divider { display: flex; }
+  #split.open #side { display: flex; }
+  #split.dragging iframe, #split.dragging webview { pointer-events: none; }
+</style>
+</head>
+<body>
+<div id="bar">
+  <b>Call Studio</b>
+  <span class="spacer"></span>
+  <button data-site="chanty" title="Chanty next to Call Studio">💬 Chanty</button>
+  <button data-site="stripe" title="Stripe next to Call Studio">💳 Stripe</button>
+  <button data-site="calendar" title="Google Calendar next to Call Studio">📅 Calendar</button>
+  <button id="swap" title="Swap sides">⇄</button>
+  <button id="close" title="Close the side panel">✕</button>
+</div>
+<div id="split">
+  <div id="studio-wrap"><iframe id="studio" src="http://127.0.0.1:8791/"></iframe></div>
+  <div id="divider" title="Drag to resize (double-click for 50/50)"><span></span></div>
+  <div id="side"></div>
+</div>
+<script>
+  const localSites = window.desktop.siteConfig || {};
+  const SITES = {
+    chanty:   { url: localSites.chanty || 'https://www.chanty.com/', partition: 'persist:chanty' },
+    stripe:   { url: localSites.stripe || 'https://dashboard.stripe.com/', partition: 'persist:stripe' },
+    calendar: { url: localSites.calendar || 'https://calendar.google.com/', partition: 'persist:google' },
+  };
+  const split = document.getElementById('split'), side = document.getElementById('side');
+  let current = null;
+
+  function openSite(site, url) {
+    let w = document.getElementById('web-' + site);
+    if (!w) { // each site gets its own webview (and its own saved login), created the first time it is opened
+      w = document.createElement('webview');
+      w.id = 'web-' + site;
+      w.setAttribute('partition', SITES[site].partition);
+      w.setAttribute('allowpopups', '');   // links that open a new window (target=_blank) must reach main.js, which sends them to your normal browser
+      w.setAttribute('src', url || SITES[site].url);
+      side.appendChild(w);
+    } else if (url) { w.loadURL(url); }
+    side.querySelectorAll('webview').forEach(x => { x.style.display = x === w ? 'flex' : 'none'; });
+    split.classList.add('open');
+    current = site;
+    document.querySelectorAll('#bar [data-site]').forEach(b => b.classList.toggle('on', b.dataset.site === site));
+  }
+  function closeSide() {
+    split.classList.remove('open');
+    current = null;
+    document.querySelectorAll('#bar [data-site]').forEach(b => b.classList.remove('on'));
+  }
+  document.querySelectorAll('#bar [data-site]').forEach(b => b.onclick = () => current === b.dataset.site ? closeSide() : openSite(b.dataset.site));
+  document.getElementById('close').onclick = closeSide;
+  document.getElementById('swap').onclick = () => split.classList.toggle('swapped');
+  window.desktop.onOpenInPanel((site, url) => openSite(site, url)); // a Chanty/Stripe/Calendar link clicked in Call Studio lands here
+
+  // draggable divider
+  const divider = document.getElementById('divider');
+  divider.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    split.classList.add('dragging');
+    const rect = split.getBoundingClientRect(), swapped = split.classList.contains('swapped');
+    const onMove = (ev) => {
+      const fromSide = swapped ? (ev.clientX - rect.left) : (rect.right - ev.clientX);
+      const w = Math.min(rect.width - 340, Math.max(300, fromSide - 6));
+      document.documentElement.style.setProperty('--side-w', w + 'px');
+    };
+    const onUp = () => { split.classList.remove('dragging'); window.removeEventListener('pointermove', onMove); window.removeEventListener('pointerup', onUp); };
+    window.addEventListener('pointermove', onMove); window.addEventListener('pointerup', onUp);
+  });
+  divider.addEventListener('dblclick', () => document.documentElement.style.setProperty('--side-w', '50%'));
+
+  openSite('chanty'); // the demo opens with Chanty doubled up next to Call Studio
+</script>
+</body>
+</html>

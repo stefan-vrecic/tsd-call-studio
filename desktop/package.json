@@ -1,0 +1,13 @@
+{
+  "name": "call-studio-desktop",
+  "version": "0.1.0",
+  "description": "Prototype: Call Studio in a desktop window that can show Chanty, Stripe, Calendar side by side",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^44.7.0"
+  }
+}

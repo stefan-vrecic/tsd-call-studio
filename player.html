@@ -1,0 +1,810 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Call Studio</title>
+<link rel="stylesheet" href="/static/styles.css">
+<link rel="stylesheet" href="/static/roadmap.css">
+<link rel="stylesheet" href="/static/modern/modern-app.css">
+<link rel="stylesheet" href="/static/vendor/pdfjs/pdf_viewer.css">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' y1='0' x2='0' y2='1'><stop offset='0' stop-color='%232563eb'/><stop offset='1' stop-color='%23143cb4'/></linearGradient></defs><rect width='64' height='64' rx='14' fill='url(%23g)'/><g fill='white'><rect x='11' y='26' width='6' height='12' rx='3'/><rect x='19' y='18' width='6' height='28' rx='3'/><rect x='27' y='10' width='6' height='44' rx='3'/><rect x='35' y='18' width='6' height='28' rx='3'/><rect x='43' y='26' width='6' height='12' rx='3'/></g></svg>">
+<link rel="icon" type="image/png" sizes="64x64" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACZElEQVR42u3b13ITQRAF0P4IyZJs2RLpLzAmGEzOYHL8RTIGk3POwTaYHD7iskVR0rjsuoxHPa317nbVedn70n2fd0QCZ9nJ30gTiTlLT/zCQtT54cd/IgsCj/+BLJnX8UuOfUcW+R1/9Buy7D/Hf0UezH38kS/Ik1kFLE4+5snM4w9/Rh61Czj0CRbYWO3gcgqYhgVewLS5VgGLDn6EBTZWO7jaBRz4AAu0AKMdXP+On4IVXsBUV0hz/ySssLHcw1UU0Nw3ASu0AMM9XNIcfQ8t9ECFPAZpjL6DFjYaeQzS2PsWWugBCnkMSQFvoIUf0HkegzT2vIYWeoBCHoMM7H4FLWw08hiKAgZ2vYQWeoBCHoP073wBX2zSkIdICngOX3yB7uchpH/HM/iiC6QgD5EU8BS++ALdz0NIffsT+GKThjyE1Lc9hi+6QAryEEUB9a2P4IsukII8hPRteQhfbNKQh0gKeABffIHu5yGkb/N9+KILpCAPkRRwD774At3PQ0jvprvwxSYNeQjp3XgHWuiCCnkMRQG1DbehhY1GHkNSwC1o4Qd0nscgtfU3oYUeoJDHILWRG9BCD1DIY5DqyHVoYaORxyDVddeghR6gkMcg1bVXYYUeaLiHqyigMnwFVthY7uH6+59QZXgcFngB4+Zaf4lV1lyGBVqA0Q6uVgE9qy/BAhurHVxOAWOwwAsYM9cuYNVFWKAFGO3gmvHHeM/KC8iTWe8FysnHPJnz1Uh56DzygL4bKg+dQ5Z5vRwrrziLLJrX28HS4BlkSdDr0dLgaWRBx2+IS8tPYSGK+qI8K8f+AV+L0h69D/i0AAAAAElFTkSuQmCC">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACZElEQVR42u3b13ITQRAF0P4IyZJs2RLpLzAmGEzOYHL8RTIGk3POwTaYHD7iskVR0rjsuoxHPa317nbVedn70n2fd0QCZ9nJ30gTiTlLT/zCQtT54cd/IgsCj/+BLJnX8UuOfUcW+R1/9Buy7D/Hf0UezH38kS/Ik1kFLE4+5snM4w9/Rh61Czj0CRbYWO3gcgqYhgVewLS5VgGLDn6EBTZWO7jaBRz4AAu0AKMdXP+On4IVXsBUV0hz/ySssLHcw1UU0Nw3ASu0AMM9XNIcfQ8t9ECFPAZpjL6DFjYaeQzS2PsWWugBCnkMSQFvoIUf0HkegzT2vIYWeoBCHoMM7H4FLWw08hiKAgZ2vYQWeoBCHoP073wBX2zSkIdICngOX3yB7uchpH/HM/iiC6QgD5EU8BS++ALdz0NIffsT+GKThjyE1Lc9hi+6QAryEEUB9a2P4IsukII8hPRteQhfbNKQh0gKeABffIHu5yGkb/N9+KILpCAPkRRwD774At3PQ0jvprvwxSYNeQjp3XgHWuiCCnkMRQG1DbehhY1GHkNSwC1o4Qd0nscgtfU3oYUeoJDHILWRG9BCD1DIY5DqyHVoYaORxyDVddeghR6gkMcg1bVXYYUeaLiHqyigMnwFVthY7uH6+59QZXgcFngB4+Zaf4lV1lyGBVqA0Q6uVgE9qy/BAhurHVxOAWOwwAsYM9cuYNVFWKAFGO3gmvHHeM/KC8iTWe8FysnHPJnz1Uh56DzygL4bKg+dQ5Z5vRwrrziLLJrX28HS4BlkSdDr0dLgaWRBx2+IS8tPYSGK+qI8K8f+AV+L0h69D/i0AAAAAElFTkSuQmCC">
+</head>
+<body>
+<div id="modern-root"></div>
+<div id="app-tabs" role="tablist">
+  <div class="app-brand"><span class="app-brand-mark">CS</span><span><b>Call Studio</b><small>Your workspace</small></span></div>
+  <button class="app-tab" id="tab-home" role="tab" aria-selected="false">⌂ Home</button>
+  <button class="app-tab active" id="tab-studio" role="tab" aria-selected="true">Call Studio</button>
+  <button class="app-tab" id="tab-live" role="tab" aria-selected="false">📞 Live Call</button>
+  <button class="app-tab" id="tab-onboarding" role="tab" aria-selected="false">📋 Onboarding</button>
+  <button class="app-tab" id="tab-precall" role="tab" aria-selected="false">✅ Checklist</button>
+  <button class="app-tab" id="tab-selfdev" role="tab" aria-selected="false">🌱 Development</button>
+  <button class="app-tab" id="tab-purchase" role="tab" aria-selected="false">🛒 Purchases</button>
+  <button class="app-tab" id="tab-music" role="tab" aria-selected="false">🎼 Music</button>
+  <button class="app-tab" id="tab-content" role="tab" aria-selected="false">💡 Content</button>
+  <button class="app-tab" id="tab-clients" role="tab" aria-selected="false">👥 Clients</button>
+  <button class="app-tab" id="tab-coaching" role="tab" aria-selected="false">🧑‍🏫 Rep Coaching</button>
+  <button class="app-tab" id="tab-accounting" role="tab" aria-selected="false">💰 Accounting</button>
+  <button class="app-tab" id="tab-delegation" role="tab" aria-selected="false">🧭 Delegation</button>
+  <button class="app-tab" id="tab-messaging" role="tab" aria-selected="false">📨 Integrated messaging</button>
+  <button class="app-tab" id="tab-journal" role="tab" aria-selected="false">📓 Journal / Planner</button>
+  <button class="app-tab" id="tab-roadmap" role="tab" aria-selected="false">🗺 Roadmap</button>
+  <button class="app-tab" id="tab-buffers" role="tab" aria-selected="false">🧱 Buffers</button>
+  <button class="app-tab" id="tab-agreements" role="tab" aria-selected="false">📄 Agreements</button>
+  <button class="app-tab" id="tab-statementbox" role="tab" aria-selected="false">🗣️ Statement Box</button>
+  <button class="app-tab" id="tab-resources" role="tab" aria-selected="false">📚 Resources</button>
+  <button class="app-tab" id="tab-learning" role="tab" aria-selected="false">🎓 Learning</button>
+  <button class="app-tab app-menu" id="tab-links" aria-haspopup="menu" title="Links">🔗 Links</button>
+  <button class="app-tab app-menu app-site" id="tab-stripe" data-url="https://dashboard.stripe.com/" title="Open Stripe in a new tab">💳 Stripe ↗</button>
+  <button class="app-tab app-menu app-site" id="tab-calendar" data-url="https://calendar.google.com/" title="Open Google Calendar in a new tab">📅 Calendar ↗</button>
+  <button class="app-tab app-menu app-site" id="tab-chanty" data-url="https://www.chanty.com/" title="Open Chanty in a new tab">💬 Chanty ↗</button>
+  <button class="app-tab app-menu app-site" id="tab-sightreading" data-url="https://sightreadingfactory.com/" title="Open Sight Reading Factory in a new tab">🎼 SightReading ↗</button>
+  <button class="app-tab" id="tab-today" role="tab" aria-selected="false">☀️ Today</button>
+  <button class="app-tab" id="tab-followup" role="tab" aria-selected="false">📞 Follow up</button>
+  <button class="app-tab" id="tab-sessions" role="tab" aria-selected="false">📅 Sessions</button>
+  <button class="app-tab" id="tab-leadgen" role="tab" aria-selected="false">💎 Lead Gen</button>
+  <button class="app-tab" id="tab-tracker" role="tab" aria-selected="false">📈 Tracker</button>
+  <button class="app-tab" id="tab-settings" role="tab" aria-selected="false">⚙️ Settings</button>
+  <span class="spacer"></span>
+  <button id="live-reset" class="app-tool" style="display:none" title="Put the windows back as they were: Script on the left, Objections and Notes together on the right">↺ Reset layout</button>
+</div>
+<div id="layout">
+  <div id="left">
+    <div id="left-header">
+      <div id="title-block"><span class="cs-kicker">CALL LIBRARY</span><div class="cs-title-line"><h1>Calls</h1><span id="studio-call-count"></span></div><div id="header-status" title="What Call Studio is working on right now"></div></div>
+      <div id="header-tools">
+        <label id="auto-ab" title="When ticked, every new call is turned into a chaptered audiobook and put in your Drive folder automatically once its review is done. Calls already in Call Studio aren't touched.">
+          <input type="checkbox" id="auto-audiobook"> <span>Auto audiobook</span>
+        </label>
+        <label id="demo-toggle" title="Demo mode: hides real names and file names so you can screen-record">
+          <input type="checkbox" id="demo-mode"> <span>Demo</span>
+        </label>
+        <button id="queue-btn" title="What Call Studio is working on, and what is waiting">⏳<span id="queue-badge"></span></button>
+        <button id="mail-btn" title="New emails (HubSpot and OnceHub are left out)">✉️<span id="mail-badge"></span></button>
+        <button id="settings-btn" title="Settings">⚙️</button>
+        <button id="theme-toggle" title="Toggle dark/light theme">🌙</button>
+      </div>
+    </div>
+    <div id="studio-primary-actions">
+      <button id="studio-upload">＋ Upload call</button>
+      <button id="open-loom" title="Download the audio of a Loom link as an mp3 named LOOM_…">⬇ Download Loom</button>
+    </div>
+    <div id="drop">Drop a recording here <span>mp3 · mp4 · mkv · m4a · wav · mov · srt · txt</span></div>
+    <label class="combine-row" title="Tick this, then drop two or more recordings: they are joined into ONE call (in file-name order) and then transcribed. It switches itself off after every upload."><input type="checkbox" class="combine-check"> 🔗 Combine dropped files into one call</label>
+    <input type="file" id="file-input" accept=".mp3,.mp4,.mkv,.m4a,.wav,.mov,.srt,.txt" multiple style="display:none">
+    <div id="studio-library-controls">
+      <div class="studio-search-row"><input type="text" id="people-search" placeholder="Search calls by name…"><button class="ctl" id="ts-open" title="Search the words said in every call (Cmd+Shift+F)">⌕ <span>Transcripts</span></button></div>
+      <div id="people-sort-row">
+        <span>Sort</span>
+        <button class="sort-btn" data-sort="date">Date</button>
+        <button class="sort-btn" data-sort="priority">Priority</button>
+      </div>
+      <div id="people-filter-row">
+        <select id="closer-filter" title="Show only calls closed by...">
+          <option value="">All closers</option>
+          <option value="mine">Mine</option>
+          <option value="other">Not mine</option>
+        </select>
+        <label class="kind-box" title="Show your calls"><input type="checkbox" id="show-calls" checked> Calls</label>
+        <label class="kind-box" title="Show the Loom downloads (named LOOM_…)"><input type="checkbox" id="show-loom" checked> Loom</label>
+        <label class="kind-box" title="Only show the calls marked as CPD (right-click a call to mark it)"><input type="checkbox" id="only-cpd"> CPD only</label>
+        <span id="people-filter-count"></span>
+      </div>
+    </div>
+    <ul class="people" id="people-list"></ul>
+    <div id="left-tools">
+      <div id="studio-quick-tools">
+        <button id="select-mine">✅ Select all mine</button>
+        <button id="open-clips" class="clips-btn" title="Clips you've collected from different calls: export them as solo files or one chaptered audiobook">🎞 Clips (0)</button>
+        <button id="open-phone-export" title="Pack calls, sections and transcripts into one zip for the Call Studio phone app">📱 Export for phone</button>
+      </div>
+      <div id="jobs"></div>
+      <details id="studio-bulk-tools">
+        <summary>Bulk actions &amp; maintenance</summary>
+        <div id="tools-grid">
+          <button id="export-selected" disabled>📦 Export selected (0)</button>
+          <button id="export-srt-only" disabled>📜 Export SRT only (0)</button>
+          <button id="combine-transcripts" disabled>🧾 Combine selected transcripts (0)</button>
+          <button id="fill-gaps">🔍 Scan &amp; fill gaps</button>
+          <button id="renormalize" title="Regenerate every doc's section names using the selected base script">🔄 Re-run all with base script</button>
+        </div>
+      </details>
+      <details id="left-more">
+        <summary>Base scripts</summary>
+        <div id="base-scripts">
+          <h2>Compare against base script</h2>
+          <div id="bs-list"></div>
+          <button id="bs-add">+ Add base script (pdf/docx/txt)</button>
+          <input type="file" id="bs-file-input" accept=".pdf,.docx,.txt" style="display:none">
+          <div id="bs-status"></div>
+        </div>
+      </details>
+    </div>
+  </div>
+  <div id="right">
+    <div id="player-bar" style="display:none">
+      <div id="now-playing-row">
+        <div id="now-playing"></div>
+        <div class="dd" id="open-menu">
+          <button class="ctl" id="open-menu-btn" aria-haspopup="true" aria-expanded="false" title="Open this call's follow-along doc, timestamp CSV, or transcript">📂 Open ▾</button>
+          <div class="dd-list" role="menu">
+            <button id="open-doc" role="menuitem">📄 Doc</button>
+            <button id="open-csv" role="menuitem">📊 CSV</button>
+            <button id="open-srt" role="menuitem" title="Show the transcript below, synced to the timeline">📜 Transcript</button>
+          </div>
+        </div>
+        <button class="ctl" id="study-notes-btn" title="Notes for studying this call">📝 Study notes</button>
+        <button class="ctl clips-btn" id="file-clips">🎞 Clips (0)</button>
+        <button class="ctl" id="copy-srt" title="Copy the whole .srt file to your clipboard">📋 Copy transcript</button>
+        <button class="ctl" id="export-audiobook" title="Create a chaptered .m4b audiobook so you can listen on your phone (right-click for Export chapters or Download audiobook locally)">📖 Export audiobook</button>
+      </div>
+      <div id="status-banner" style="display:none"></div>
+      <div id="links-row">
+        <span id="link-direct" class="ext-link"></span>
+        <span id="link-copy-transcript" class="ext-link"></span>
+        <span id="link-copy-path" class="ext-link"></span>
+        <span id="link-recording" class="ext-link"></span>
+        <span id="link-crm" class="ext-link"></span>
+        <span id="link-notes" class="ext-link"></span>
+        <span id="spin-notes-trigger" class="ext-link"></span>
+      </div>
+      <div id="spin-notes-display" style="display:none"></div>
+      <video id="media" style="display:none"></video>
+      <div id="controls">
+        <button class="ctl" id="playpause">▶</button>
+        <button class="ctl" id="stop">■</button>
+        <div class="seek-wrap">
+          <input type="range" id="seek" class="seek" min="0" max="100" value="0" step="0.1">
+          <div class="ab-layer">
+            <div class="ab-region"></div>
+            <div class="ab-handle ab-a" data-which="a" tabindex="0" title="Drag to move the start (A). Arrow keys nudge it."><span>A</span></div>
+            <div class="ab-handle ab-b" data-which="b" tabindex="0" title="Drag to move the end (B). Arrow keys nudge it."><span>B</span></div>
+          </div>
+        </div>
+        <div id="time">0:00 / 0:00</div>
+        <button class="ctl speed" data-rate="0.75">0.75x</button>
+        <button class="ctl speed" data-rate="1">1x</button>
+        <button class="ctl speed" data-rate="1.25">1.25x</button>
+        <button class="ctl speed" data-rate="1.5">1.5x</button>
+        <button class="ctl speed" data-rate="1.75">1.75x</button>
+        <button class="ctl speed" data-rate="2">2x</button>
+      </div>
+      <div id="volume-row" title="Boost the volume above 100% for quiet recordings">
+        <label for="volume-boost">🔊 Volume boost</label>
+        <input type="range" id="volume-boost" min="100" max="300" step="5" value="100">
+        <button class="ctl" id="volume-readout" title="Click to put it back to 100%">100%</button>
+      </div>
+      <div class="ab-row" id="ab-bar">
+        <span class="ab-dot" style="background:#16a34a"></span>
+        <span class="ab-readout" id="ab-readout"></span>
+        <button class="ctl" id="ab-extend" title="Move the second marker 30 seconds later">▲ 30s</button>
+        <button class="ctl" id="ab-play" title="Play this range (from the first marker to the second)">▶</button>
+        <button class="ctl" id="ab-export" title="Cut the A–B part out as its own mp3">✂ Export section</button>
+        <button class="ctl" id="ab-add-clip" title="Put the A–B part in your clip basket, to export with clips from other calls">➕ Add to clips</button>
+        <button class="ctl" id="ab-add-range" title="Add another range on the slider: C–D, then E–F, and so on">＋ Range</button>
+        <button class="ctl" id="ab-paste" title="Paste a message with times (e.g. \"Minute 16:30-18:00 - Finance objection\") and turn it into clips">📋 Paste clips</button>
+      </div>
+      <div id="ab-extra-rows"></div>
+    </div>
+    <div id="table-wrap">
+      <div id="empty">
+        <div class="studio-empty-card">
+          <span class="studio-empty-mark">CS</span>
+          <p class="studio-empty-kicker">CALL REVIEW WORKSPACE</p>
+          <h2>Select a call to begin</h2>
+          <p>Open a call from the library to review its timeline, transcript, follow-up notes and clips.</p>
+          <div id="studio-empty-drop" class="studio-empty-drop" role="button" tabindex="0" title="Click to choose files, or drop them here">
+            <span class="sed-icon">⬆</span><b>Drop recordings here</b><small>or click to choose · mp3 · m4a · wav · mp4 · mov … (several at once is fine)</small>
+          </div>
+          <div class="studio-empty-actions"><button id="studio-empty-search">⌕ Search transcripts</button></div>
+          <div class="studio-empty-features"><span><b>01</b> Review the timeline</span><span><b>02</b> Study key moments</span><span><b>03</b> Export clips</span></div>
+        </div>
+      </div>
+      <div id="objection-box" style="display:none"></div>
+      <h2 id="transcript-heading" style="display:none; font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:0 10px 8px;">Transcript</h2>
+      <div id="transcript-search-bar" style="display:none">
+        <input type="text" id="transcript-search-input" placeholder="Search this transcript…">
+        <span id="transcript-search-count"></span>
+        <button id="transcript-search-prev" title="Previous match">↑</button>
+        <button id="transcript-search-next" title="Next match">↓</button>
+        <button id="transcript-flag-next" style="display:none" title="Jump to the next flagged line (right-click a line to flag it)"></button>
+      </div>
+      <div id="transcript-panel" style="display:none"></div>
+      <table id="timeline" style="display:none">
+        <thead><tr><th style="width:120px">Timestamp</th><th style="width:200px">Section</th><th>What Happens / Key Line</th></tr></thead>
+        <tbody id="timeline-body"></tbody>
+      </table>
+      <h2 id="skipped-heading" style="display:none; font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:20px 10px 8px;">Script Coverage Checklist</h2>
+      <table id="skipped-table" style="display:none">
+        <thead><tr><th style="width:200px">Script Section</th><th>What Happened On This Call</th></tr></thead>
+        <tbody id="skipped-body"></tbody>
+      </table>
+      <h2 id="recs-heading" style="display:none; font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:20px 10px 8px;">Biggest Recommendations</h2>
+      <ol id="recs-list" style="display:none; margin:0 10px 20px; padding-left:20px; font-size:13px;"></ol>
+
+      <div id="qa-section" style="display:none">
+        <h2 style="font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:20px 10px 8px;">Ask about this call</h2>
+        <div id="qa-form">
+          <input type="text" id="qa-input" placeholder="Ask a question about this transcript…">
+          <button class="ctl" id="qa-ask">Ask</button>
+        </div>
+        <div id="qa-history"></div>
+      </div>
+    </div>
+
+    <div id="search-overlay">
+      <div id="search-header">
+        <h2 id="search-title">Search results</h2>
+        <button id="search-add-all" title="Add every result showing below (respecting the filters) to your clip basket, each with its current A–B part">➕ Add all to clips</button>
+        <button id="search-clips" class="clips-btn" title="Your clip basket">🎞 Clips (0)</button>
+        <button id="search-close">✕ Close</button>
+      </div>
+      <div id="search-filter">
+        <button class="sf-btn" data-filter="all">All</button>
+        <button class="sf-btn sf-mine" data-filter="mine">Mine</button>
+        <button class="sf-btn sf-other" data-filter="other">Not mine</button>
+      </div>
+      <div id="search-closers"><span>Closer:</span></div>
+      <div id="search-results"></div>
+    </div>
+  </div>
+</div>
+
+<div id="live-view" style="display:none">
+  <div id="live-groups"></div>  <!-- the windows: built by live-dock.js -->
+  <div id="live-panels" style="display:none">  <!-- the three panels wait here until live-dock.js places them in windows -->
+    <section class="live-panel" id="live-panel-script">
+      <div class="live-pbar"><span class="live-file" id="live-file-script"></span><span class="spacer"></span>
+        <a class="ctl live-btn live-script-link" id="live-script-link" href="#" target="_blank" rel="noopener" title="Open the live, editable script (set the link in Settings → Live Call)">📜 Live script ↗</a>
+        <button class="ctl live-btn" data-replace="script" title="Replace the script with a newer PDF">Replace PDF</button></div>
+      <div class="live-doc" id="live-doc-script"></div>
+    </section>
+    <section class="live-panel" id="live-panel-objections">
+      <div class="live-pbar"><span class="live-file" id="live-file-objections"></span><span class="spacer"></span>
+        <button class="ctl live-btn" data-replace="objections" title="Replace the cheat sheet with a newer PDF">Replace PDF</button></div>
+      <div class="live-doc" id="live-doc-objections"></div>
+    </section>
+    <section class="live-panel" id="live-panel-notes">
+      <div class="live-pbar"><span id="live-notes-status"></span><span class="spacer"></span>
+        <button class="ctl live-btn" id="live-notes-pop" title="Pop the notes out into their own window">⧉</button>
+        <button class="ctl live-btn" id="live-notes-copy" title="Copy all the notes">Copy</button>
+        <button class="ctl live-btn" id="live-notes-clear" title="Start a fresh page of notes">Clear</button></div>
+      <div class="live-notes" id="live-notes">
+        <textarea id="live-notes-text" spellcheck="true" placeholder="Notes for this call… (saved automatically)"></textarea>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="onboarding-view" style="display:none">
+  <section class="live-pane" style="flex:1">
+    <header><span class="live-title">📋 SCP Onboarding</span><span class="live-file" id="live-file-onboarding"></span><span class="spacer"></span>
+      <button class="ctl live-btn" data-replace="onboarding" title="Replace with a newer PDF">Replace PDF</button></header>
+    <div class="live-doc" id="live-doc-onboarding"></div>
+  </section>
+</div>
+
+<div id="content-view" style="display:none">
+  <div class="ci-cols">
+    <section class="ci-col">
+      <div class="ci-head"><h2>Content ideas</h2><span class="ci-count" id="ci-count"></span><span class="ci-status" id="ci-status-ideas"></span></div>
+      <input id="ci-new" class="ci-new" placeholder="Add an idea and press Enter · double-click an idea to write it out" autocomplete="off">
+      <div id="ci-items" class="ci-items"></div>
+    </section>
+    <section class="ci-col">
+      <div class="ci-head"><h2>Brainstorm</h2><span class="ci-status" id="ci-status-brainstorm"></span></div>
+      <textarea id="ci-brainstorm" class="ci-text" spellcheck="true" placeholder="Think out loud here"></textarea>
+      <div class="ci-brain-images"><div><b>Screenshots</b><button class="ctl" id="ci-brain-add">＋ Add screenshot</button><input id="ci-brain-file" type="file" accept="image/*" multiple hidden></div><p>Paste or drop screenshots onto this Brainstorm panel.</p><div id="ci-brain-grid"></div></div>
+    </section>
+  </div>
+  <div class="ci-split">
+  <section class="sw-gallery" id="sw-gallery">
+    <div class="ci-head">
+      <h2>Swipe gallery <span class="sw-total" id="sw-total"></span></h2>
+      <div class="sw-tools">
+        <span class="ci-status" id="sw-status"></span>
+        <span class="sw-mode"><button class="ctl" data-mode="grid" title="Grid of cards">▦ Gallery</button><button class="ctl" data-mode="carousel" title="One scrolling strip">↔ Carousel</button></span>
+        <button class="ctl sw-arrow" id="sw-prev-strip" title="Scroll left" hidden>‹</button><button class="ctl sw-arrow" id="sw-next-strip" title="Scroll right" hidden>›</button>
+        <button class="ctl" id="sw-open-all" title="Open every item in a big window">⤢ Pop out</button>
+        <button class="ctl" id="sw-open-tab" title="Open the dedicated Swipe Gallery tab">↗ Full gallery</button>
+        <button class="ctl" id="sw-add-img">+ Image</button>
+        <button class="ctl" id="sw-add-video">+ Video</button>
+        <button class="ctl" id="sw-add-link">+ Link</button>
+        <input type="file" id="sw-file" accept="image/*" multiple hidden>
+      </div>
+    </div>
+    <div class="sw-hint">Stories and posts to respond to. Paste a screenshot (⌘V), drop images here, or add a link — then write your response under it. Click a picture to swipe through them full size.</div>
+    <div id="sw-grid" class="sw-grid"></div>
+    <button class="ctl sw-more" id="sw-more" hidden></button>
+  </section>
+  <section class="sw-gallery nw-box" id="nw-box">
+    <div class="ci-head"><h2>Collab &amp; networking</h2><span class="ci-status" id="nw-status"></span></div>
+    <div class="sw-hint">People to reach out to and talk ideas through. Click a status to move it on.</div>
+    <div id="nw-root"></div>
+    <div class="nw-recordings"><div><b>Sales recordings</b><button class="ctl" id="nw-recording-add">＋ Add recording</button><input id="nw-recording-file" type="file" accept="audio/*,video/*" hidden></div><div id="nw-recordings"></div></div>
+  </section>
+  </div>
+</div>
+<div id="sw-all" class="sw-all" hidden>
+  <div class="sw-all-panel">
+    <div class="ci-head"><h2>Swipe gallery <span class="ci-status" id="sw-all-count"></span></h2><button class="ctl" id="sw-all-close" title="Close (Esc)">✕ Close</button></div>
+    <div id="sw-all-grid" class="sw-grid sw-grid-all"></div>
+  </div>
+</div>
+<div id="sw-viewer" class="sw-viewer" hidden>
+  <button class="sw-nav sw-prev" id="sw-prev" title="Previous (←)">‹</button>
+  <div class="sw-stage" id="sw-stage"></div>
+  <aside class="sw-side">
+    <div class="sw-count" id="sw-count"></div>
+    <input class="sw-v-title" id="sw-v-title" placeholder="Title / who posted it">
+    <input class="sw-v-link" id="sw-v-link" placeholder="Link (optional)">
+    <textarea class="sw-v-resp" id="sw-v-resp" placeholder="Your response…"></textarea>
+    <div class="ci-status" id="sw-v-status"></div>
+  </aside>
+  <button class="sw-nav sw-next" id="sw-next" title="Next (→)">›</button>
+  <button class="sw-close" id="sw-close" title="Close (Esc)">✕</button>
+</div>
+
+<div id="settings-view" style="display:none">
+  <article class="selfdev-doc st-doc">
+    <h2>Settings</h2>
+    <h3>Tab bar</h3>
+    <p class="st-note">Show the tabs along the top, or down the side. In the side bar, <b>Auto</b> puts it on the left, and on the right on Call Studio (its people list already takes the left). You can also right-click the tab bar.</p>
+    <div class="st-hover-row"><span class="st-hover-name">Position</span><div class="bf-seg" id="st-tabbar-mode"></div></div>
+    <div class="st-hover-row" id="st-tabbar-side-row"><span class="st-hover-name">Side bar goes</span><div class="bf-seg" id="st-tabbar-side"></div></div>
+    <label class="st-hover-row"><input type="checkbox" id="st-tab-cmdhover"><span class="st-hover-name">Hold Cmd and hover a tab to open it (instead of clicking)</span></label>
+    <label class="st-hover-row"><input type="checkbox" id="st-hotkeys-enabled"><span class="st-hover-name">Enable custom navigation hotkeys</span><span class="st-hotkey-master-note">Assignments stay saved when off</span></label>
+    <h3>Quick jump</h3>
+    <p class="st-note">Double-tap Cmd and start typing a page or section. Call Studio opens the best match after you pause.</p>
+    <div class="st-hover-row"><span class="st-hover-name">Wait after I stop typing</span><input type="number" id="st-quick-jump-delay" min="0.1" max="5" step="0.1" class="st-voice-secs"> <span class="st-note" style="margin:0">seconds</span></div>
+    <div class="st-hover-row"><span class="st-hover-name">Also search</span><label><input type="checkbox" data-qj-include="sections"> Tracker / Learning sections</label><label><input type="checkbox" data-qj-include="metrics"> each tracker (Approaches, Steps…)</label><label><input type="checkbox" data-qj-include="dates"> Tracker history dates</label></div>
+    <details id="st-qj-names" class="st-qj-names"><summary>✏️ Other names for pages <small></small></summary><p class="st-note">Extra words that find a page, separated by commas — e.g. Journal: <i>diary, notes, planner</i>. Typing one of these exactly goes straight there.</p><input type="search" class="st-qj-filter" placeholder="Find a page…"><div class="st-qj-rows"></div></details>
+    <h3>Calendar account</h3>
+    <p class="st-note">The Google calendar Call Studio reads and writes: Today, Sessions, follow-ups, the tracker and the auto-buffers all use this one. Switching restarts the buffer poller so it follows.</p>
+    <div id="st-cal-accounts"></div>
+    <h3>Notebook pages</h3>
+    <p class="st-note">The writing on Identity Lab's notebook pages (List / 📓 Notebook). The pages are drawn when you look at them, so changing the font changes every session straight away.</p>
+    <div class="st-hover-row"><span class="st-hover-name">Font</span><select id="st-notebook-font"><option value="mix">Mixed: clean titles, handwritten answers</option><option value="hand">Handwriting</option><option value="sans">Clean sans-serif (easier to read)</option></select></div>
+    <h3>Call Studio</h3>
+    <p class="st-note">Calls booked in your calendar that aren't transcribed yet show above your call list, in this colour, with their Aloware link. They disappear by themselves once the recording is in Call Studio.</p>
+    <div class="st-hover-row"><span class="st-hover-name">Not-transcribed colour</span><input type="color" id="st-pending-color"><button class="ctl" id="st-pending-color-reset" title="Back to dark red">Reset</button><span id="st-pending-status" class="bk-status"></span></div>
+    <div class="st-hover-row"><span class="st-hover-name">Being transcribed colour</span><input type="color" id="st-processing-color"><button class="ctl" id="st-processing-color-reset" title="Back to amber">Reset</button></div>
+    <div class="st-hover-row"><span class="st-hover-name">Show calendar calls from the last</span><input type="number" id="st-pending-days" min="0" max="60" class="st-voice-secs"> <span class="st-note" style="margin:0">days (0 = today only), plus today's calls still to come</span></div>
+    <h3>Live Call</h3>
+    <p class="st-note">The <b>📜 Live script ↗</b> button above the script opens this link: the live, editable version of the script (e.g. its Google Doc).</p>
+    <div class="st-hover-row"><span class="st-hover-name">Live script link</span><input type="url" id="st-live-script" class="st-wide-input" placeholder="https://docs.google.com/document/d/…"><span id="st-live-script-status" class="bk-status"></span></div>
+    <h3>Voice command</h3>
+    <p class="st-note">Hold <b>Fn</b>, speak (Wispr Flow types into the bar), let go. After a command runs the bar closes and the answer shows in a small note, with links where they help.</p>
+    <div class="st-hover-row"><span class="st-hover-name">Voice bar sits</span><div class="bf-seg st-seg" id="st-voice-pos"><button type="button" data-pos="left">⇤ Left</button><button type="button" data-pos="center">↔ Centre</button></div></div>
+    <label class="st-hover-row"><input type="checkbox" id="st-voice-auto"><span class="st-hover-name">Send by itself 1 second after I let go of Fn</span></label>
+    <div class="st-hover-row"><span class="st-hover-name">Show the answer for</span><input type="number" id="st-voice-toast" min="0" max="60" step="1" class="st-voice-secs"> <span class="st-note" style="margin:0">seconds (0 = don't show it; it stays while your mouse is on it)</span><span id="st-voice-status" class="bk-status"></span></div>
+    <div class="st-hover-row"><span class="st-hover-name">What my words mean</span><button class="ctl" id="st-guide-open">📖 Open the voice guide</button><span class="st-note" style="margin:0">a note you can edit; the assistant reads it before every command</span></div>
+    <div id="st-guide" class="st-guide" style="display:none">
+      <div class="st-guide-bar"><div class="bf-seg"><button type="button" data-guide="read" class="on">👁 Read</button><button type="button" data-guide="edit">✏️ Edit</button></div>
+        <span id="st-guide-status" class="bk-status"></span><button class="ctl" id="st-guide-close">Close</button></div>
+      <div id="st-guide-read" class="st-guide-read"></div>
+      <textarea id="st-guide-text" class="st-guide-text" spellcheck="true" style="display:none"></textarea>
+    </div>
+    <h3>Hover previews</h3>
+    <p class="st-note">Rest the mouse on something and a bigger view pops up. Set how long it waits (in seconds), or switch it off.</p>
+    <div id="st-hover-rows"></div>
+    <h3>External links</h3>
+    <p class="st-note">These links appear in the sidebar and in double-Cmd quick jump. Edit the name, icon or URL, or add your own destination.</p>
+    <div id="st-external-links"></div>
+    <div class="st-external-actions"><button class="ctl" id="st-external-add" type="button">＋ Add external link</button><span id="st-external-status" class="bk-status"></span></div>
+    <h3>Tabs</h3>
+    <p class="st-note">The <b>eye</b> hides or shows a page in the navigation. Click its name to <b>rename</b> it (press Enter; empty brings the original back). <b>Tab</b> colours its navigation button and <b>Page</b> the page behind it. Click <b>Set hotkey</b>, then press your shortcut; Escape cancels and Backspace clears. macOS/browser shortcuts such as Cmd+H cannot be reassigned, so Option combinations work best. Saved in this browser.</p>
+    <div id="st-rows"></div>
+    <div class="st-actions"><button class="ctl" id="st-reset-all">Reset tab settings</button></div>
+  </article>
+</div>
+
+<aside id="bs-reader" style="display:none" aria-label="Book page">
+  <div id="bs-reader-head"><div id="bs-reader-title"></div><button class="ctl" id="bs-reader-prev" title="Previous page">←</button><button class="ctl" id="bs-reader-next" title="Next page">→</button><a class="ctl" id="bs-reader-tab" target="_blank" rel="noopener" title="Open in a new browser tab">↗ New tab</a><button class="ctl" id="bs-reader-close" title="Close">✕</button></div>
+  <div id="bs-reader-body"></div>
+</aside>
+
+
+
+<div id="journal-view" style="display:none"><div class="jp-layout"><article class="selfdev-doc biz-doc"><h2>📓 Journal</h2><div id="jr-root"></div></article><article class="selfdev-doc biz-doc jp-plan"><h2>🧭 Planner / Strategy <span id="jp-status" class="bk-status"></span></h2><p class="jr-hint">Create an area, give it a sub-heading, and write out your thinking.</p><div class="jp-adds"><button class="ctl" id="jp-add">＋ Add strategy area</button><button class="ctl" id="jp-add-split" title="Two columns with a heading each (a T-chart)">◫ A/B split</button><button class="ctl" id="jp-add-quad" title="Four boxes to compare options">⊞ 4 quadrants</button></div><div id="jp-root"></div></article></div></div>
+<div id="roadmap-view" style="display:none"><article class="selfdev-doc biz-doc roadmap-doc"><header class="roadmap-head"><div><span>PERSONAL · DIRECTION</span><h2>🗺 Timeline roadmap</h2><p>Plan one general direction and each area of your life, as boxes or as a diagram.</p></div><div class="rm-head-actions"><a class="rm-head-action primary" id="rm-open-link" href="https://app.diagrams.net/" target="_blank" rel="noopener" title="Open draw.io · right-click to edit this link">Open</a><a class="rm-head-action" href="/api/roadmap-diagram">Download roadmap map (.drawio)</a></div></header><div id="rm-root"></div><span id="rm-status" class="bk-status"></span></article></div>
+
+<div id="today-view" style="display:none">
+  <div class="today-wrap">
+    <article class="selfdev-doc today-doc">
+      <h2 class="day-head"><button class="day-nav" id="day-prev" title="Previous day">‹</button><span id="day-title">Today</span><button class="day-nav" id="day-next" title="Next day">›</button></h2>
+      <div id="today-sub" class="today-sub"></div>
+      <div class="day-back"><button class="ctl" id="day-today" style="display:none">↩ Back to today</button></div>
+      <ul id="today-list" class="today-list"></ul>
+    </article>
+    <aside id="today-stats" class="today-stats"></aside>
+    <div class="today-side2">
+      <aside id="today-weight" class="today-stats today-weight"></aside>
+      <aside id="today-calls" class="today-stats today-calls"></aside>
+    </div>
+  </div>
+</div>
+
+
+<div id="followup-view" style="display:none">
+  <div class="today-wrap">
+  <article class="selfdev-doc fu-doc">
+    <h2>Follow up</h2>
+    <div id="fu-sub" class="today-sub"></div>
+    <div id="fu-tools"><button class="ctl" id="fu-copy-progress" title="Copy a progress summary to paste into a Google Calendar event">📋 Copy progress</button><span class="fu-mode" id="fu-mode" title="Where the list comes from"><button data-mode="flamingo">🦩 Flamingo calendar</button><button data-mode="saved">📋 Saved list</button></span><label class="kind-box"><input type="checkbox" id="fu-hide-done"> Hide done</label></div>
+    <ul id="fu-list" class="fu-list"></ul>
+    <div id="fu-add"><input type="text" id="fu-add-name" placeholder="Add someone: name" autocomplete="off"><input type="text" id="fu-add-link" placeholder="Aloware link (optional)" autocomplete="off"><button class="ctl" id="fu-add-go">+ Add</button></div>
+  </article>
+  <aside class="today-stats fu-side">
+    <div id="fu-drop" class="drop-zone">Drag an mp3 / mp4 / mkv here<br>to transcribe &amp; build a follow-along<br><small>or an .srt/.txt if it's already transcribed</small><br><small>(or click to choose a file)</small></div>
+    <label class="combine-row" title="Tick this, then drop two or more recordings: they are joined into ONE call (in file-name order) and then transcribed. It switches itself off after every upload."><input type="checkbox" class="combine-check"> 🔗 Combine dropped files into one call</label>
+  </aside>
+  </div>
+</div>
+
+<div id="learning-view" style="display:none">
+  <main class="lrn-wrap">
+    <header class="lrn-head"><div><span>PERSONAL</span><h1>Learning</h1><p>Your books, videos and personal study library.</p></div></header>
+    <div class="lrn-grid">
+      <article class="selfdev-doc bk-doc" id="learning-books-drop">
+        <h2>📖 Books <span id="bk-status" class="bk-status"></span></h2>
+        <div id="bs-all"></div>
+        <div id="bk-list"></div>
+        <div class="bk-add-row"><input id="bk-new-book" placeholder="Add a book: Author – Title"><button class="ctl" id="bk-add">+ Add book</button></div>
+        <p class="lrn-drop-hint">Drop a PDF, EPUB or TXT here to create and index the book.</p>
+      </article>
+      <article class="selfdev-doc bk-doc" id="learning-videos">
+        <h2>🎬 Videos <span id="vd-status" class="bk-status"></span></h2>
+        <div class="bk-video-filters" id="vd-filter" role="tablist" aria-label="Video category">
+          <button type="button" data-category="general" class="on" role="tab" aria-selected="true">YouTube / General <span></span></button>
+          <button type="button" data-category="sales" role="tab" aria-selected="false">Sales Recordings <span></span></button>
+        </div>
+        <div id="vd-list"></div>
+        <div class="bk-add-row"><input id="vd-new-title" placeholder="Video title"><input id="vd-new-url" placeholder="Link (https://…)"><button class="ctl" id="vd-add">+ Add video</button></div>
+      </article>
+    </div>
+  </main>
+</div>
+
+<div id="tracker-view" style="display:none">
+  <div class="tk-wrap">
+    <div class="tk-head">
+      <div class="tk-title"><span>PERSONAL · METRICS</span><h2>Tracker</h2><p id="tk-view-caption">Capture today without losing sight of the trend.</p></div>
+      <nav class="tk-nav" id="tk-nav">
+        <button data-view="quick"><i>❓</i><span>Questions</span></button><button data-view="log" class="active"><i>✍️</i><span>Log</span></button><button data-view="history"><i>🕘</i><span>History</span></button><button data-view="dash"><i>📊</i><span>Dashboard</span></button><button data-view="sheet"><i>🗓</i><span>Sheet</span></button><button data-view="charts"><i>📈</i><span>Charts</span></button><button data-view="workouts"><i>🏋️</i><span>Workouts</span></button><button data-view="manage"><i>⚙️</i><span>Manage</span></button>
+      </nav>
+    </div>
+    <section id="tk-quick" class="tk-pane" style="display:none"></section>
+    <section id="tk-log" class="tk-pane"></section>
+    <section id="tk-history" class="tk-pane" style="display:none"></section>
+    <section id="tk-dash" class="tk-pane" style="display:none"></section>
+    <section id="tk-sheet" class="tk-pane" style="display:none"></section>
+    <section id="tk-charts" class="tk-pane" style="display:none"></section>
+    <section id="tk-workouts" class="tk-pane" style="display:none"></section>
+    <section id="tk-manage" class="tk-pane" style="display:none"></section>
+  </div>
+</div>
+
+<div id="precall-view" style="display:none">
+  <div class="checklist-wrap">
+  <nav class="cl-menu" aria-label="Checklists"></nav>
+  <article class="selfdev-doc precall-doc" data-card="precall">
+    <button class="ctl cl-edit" title="Add, change or remove bullets">✎ Edit</button>
+    <h2>Pre-Call Checklist</h2>
+    <ul>
+      <li>Lead with love and compassion</li>
+      <li>I lead the call, I do not give the power away</li>
+      <li>I cut through noise, bullshit and smoke screens</li>
+      <li>I have faith in my prospect</li>
+      <li>Why is my prospect so committed to following through despite uncertainty?</li>
+      <li>Why is my prospect so financially resourceful?</li>
+      <li>Money is Neutral (I have it in my hands and detached from which direction it goes)</li>
+      <li>They need me (I’m their only hope and that’s MY responsibility)</li>
+      <li>Breathe</li>
+      <li>I am the Master (presence and pro-athlete mentality)</li>
+    </ul>
+    <div class="cl-nav"><button class="ctl cl-prev">‹ Prev</button><span class="cl-count"></span><button class="ctl cl-next">Next ›</button></div>
+  </article>
+  <article class="selfdev-doc precall-doc" data-card="review">
+    <button class="ctl cl-edit" title="Add, change or remove bullets">✎ Edit</button>
+    <h2>Review Checklist</h2>
+    <ul>
+      <li>Did the closer address all the fear, doubt?</li>
+      <li>Was the prospect empowered and trusting?</li>
+      <li>Which specific moments were weak?</li>
+      <li>Which language patterns indicate this?</li>
+      <li>Did the prospect show signs of financial resourcefulness?</li>
+      <li>Did the prospect show full signs of commitment?</li>
+    </ul>
+    <div class="cl-nav"><button class="ctl cl-prev">‹ Prev</button><span class="cl-count"></span><button class="ctl cl-next">Next ›</button></div>
+  </article>
+  <article class="selfdev-doc precall-doc" data-card="nlp">
+    <button class="ctl cl-edit" title="Add, change or remove bullets">✎ Edit</button>
+    <h2>NLP Checklist &amp; Statements</h2>
+    <ul>
+      <li>"While I may not automatically love this, how can I find a way to use it?"</li>
+      <li>"What one or two things can I do NOW to give this a chance to help myself?"</li>
+      <li>One of the worst things we can say in life is "that's not for me"</li>
+    </ul>
+    <div class="cl-nav"><button class="ctl cl-prev">‹ Prev</button><span class="cl-count"></span><button class="ctl cl-next">Next ›</button></div>
+  </article>
+  <article class="selfdev-doc precall-doc sales-card" data-card="sales">
+    <h2>Sales Checklist</h2>
+    <div class="sc-sub" id="sc-sub"></div>
+    <div class="sc-add"><input type="text" id="sc-name" placeholder="Add a person's name…" autocomplete="off"><button class="ctl" id="sc-add-go">+ Add</button></div>
+    <ul class="sc-list" id="sc-list"></ul>
+    <div class="cl-nav"><button class="ctl cl-prev">‹ Prev</button><span class="cl-count"></span><button class="ctl cl-next">Next ›</button></div>
+  </article>
+  </div>
+</div>
+
+<input type="file" id="live-file-input" accept="application/pdf,.pdf" style="display:none">
+
+<div id="ctx-menu"></div>
+
+<div id="queue-panel">
+  <div id="queue-panel-head"><b>Queue</b><span id="queue-sub"></span></div>
+  <div id="queue-panel-list"></div>
+</div>
+<div id="mail-panel">
+  <div id="mail-panel-head"><b>New emails</b><span class="spacer"></span><button class="ctl" id="mail-clear">Clear</button></div>
+  <div id="mail-panel-list"></div>
+</div>
+<div id="mail-toasts" aria-live="polite"></div>
+
+<div id="export-section-overlay">
+  <div id="export-section-modal">
+    <h2>Export section</h2>
+    <div class="es-call" id="es-call"></div>
+    <label for="es-name">File name <span style="text-transform:none;letter-spacing:0">(saved as .mp3)</span></label>
+    <input type="text" id="es-name" autocomplete="off">
+    <div class="es-times">
+      <div><label for="es-start">Start (A)</label><input type="text" id="es-start" placeholder="m:ss" autocomplete="off"></div>
+      <div><label for="es-end">End (B)</label><input type="text" id="es-end" placeholder="m:ss" autocomplete="off"></div>
+    </div>
+    <div id="es-len"></div>
+    <div id="es-error"></div>
+    <div id="es-actions">
+      <button class="ctl" id="es-cancel">Cancel</button>
+      <button class="ctl" id="es-go" style="background:var(--accent);color:#fff;border-color:var(--accent)">Export</button>
+    </div>
+  </div>
+</div>
+
+<div id="clips-overlay">
+  <div id="clips-modal">
+    <div id="clips-head"><h2>Clips</h2><span id="clips-total"></span><button class="ctl" id="clips-paste" title="Paste a message with times and turn it into clips">📋 Paste clips</button><button class="ctl" id="clips-clear" title="Remove every clip from the basket">Clear all</button></div>
+    <div id="clips-list"></div>
+    <div id="clips-opts">
+      <label class="clips-opt"><input type="checkbox" id="clips-opt-book" checked> One chaptered audiobook <small>(.m4b, each clip = a chapter named after its title)</small></label>
+      <label class="clips-opt"><input type="checkbox" id="clips-opt-solo"> Solo files <small>(one mp3 per clip)</small></label>
+      <label class="clips-opt" id="clips-drive-row"><input type="checkbox" id="clips-opt-drive" checked> Also copy the audiobook to my Drive folder</label>
+      <label class="clips-opt"><input type="checkbox" id="clips-opt-zip"> Also pack everything into one .zip <small>(easy to send to your phone)</small></label>
+      <label for="clips-book-title">Name <small>(folder and audiobook title)</small></label>
+      <input type="text" id="clips-book-title" autocomplete="off">
+    </div>
+    <div id="clips-status"></div>
+    <div id="clips-actions">
+      <button class="ctl" id="clips-close">Close</button>
+      <button class="ctl" id="clips-go" style="background:var(--accent);color:#fff;border-color:var(--accent)">Export</button>
+    </div>
+  </div>
+</div>
+
+<div id="settings-overlay">
+  <div id="settings-modal">
+    <h2>Settings</h2>
+    <label for="set-closer">Closer name</label>
+    <input type="text" id="set-closer" autocomplete="off" maxlength="60">
+    <div class="pm-sub">Fills in <b>[closer]</b> in the follow-up messages Call Studio drafts, and is used to sign new ones. Saved on this Mac.</div>
+    <div class="set-section">Download Loom</div>
+    <label for="set-loom-mode">What to download</label>
+    <select id="set-loom-mode">
+      <option value="audio">Audio only (mp3)</option>
+      <option value="video">Video (smallest version)</option>
+    </select>
+    <div class="pm-sub">Video mode runs <code>yt-dlp -f "worst"</code>: the smallest version, so it downloads fast and still plays in Call Studio with its picture.</div>
+    <div class="set-section">Voice command</div>
+    <div class="set-row"><label class="set-check"><input type="checkbox" id="set-voice-auto"> Send by itself 1 second after I let go of Fn</label></div>
+    <label for="set-voice-toast" style="margin-top:10px">Show the answer for (seconds)</label>
+    <input type="number" id="set-voice-toast" min="0" max="60" step="1" style="width:90px">
+    <div class="pm-sub">After a command runs, the bar closes and its answer shows in a small note that fades. 0 = don't show it. Typing in the box or Esc stops an automatic send.</div>
+    <div class="set-section">Email notifications</div>
+    <div id="set-mail-status" class="pm-sub"></div>
+    <div class="set-row">
+      <button class="ctl" id="set-mail-connect">Connect Gmail</button>
+      <button class="ctl" id="set-mail-disconnect" style="display:none">Disconnect</button>
+      <label class="set-check"><input type="checkbox" id="set-mail-on"> Pop up new emails</label>
+    </div>
+    <label for="set-mail-ignore" style="margin-top:10px">Ignore emails from (comma separated)</label>
+    <input type="text" id="set-mail-ignore" autocomplete="off" placeholder="hubspot, oncehub">
+    <div class="pm-sub">Any sender whose name or address contains one of these words is left out. Call Studio only asks for read-only access: it can't send, delete or change anything.</div>
+    <div id="set-status"></div>
+    <div id="set-actions">
+      <button class="ctl" id="set-cancel">Cancel</button>
+      <button class="ctl" id="set-save" style="background:var(--accent);color:#fff;border-color:var(--accent)">Save</button>
+    </div>
+  </div>
+</div>
+
+<aside id="sn-panel" aria-label="Study notes">
+  <div id="sn-head"><b>📝 Study notes</b><span id="sn-call"></span><span id="sn-status"></span><button id="sn-pop" class="ctl" title="Pop out into its own window">⧉</button><button id="sn-min" class="ctl" title="Minimise">–</button><button id="sn-close" class="ctl" title="Close">✕</button></div>
+  <textarea id="sn-text" spellcheck="true" placeholder="What are you taking from this call?"></textarea>
+</aside>
+
+<div id="split-overlay">
+  <div id="split-modal">
+    <h2>Split event</h2>
+    <div class="pm-sub" id="split-sub"></div>
+    <label for="split-name1" id="split-lab1"></label>
+    <input type="text" id="split-name1" autocomplete="off">
+    <label for="split-name2" id="split-lab2"></label>
+    <input type="text" id="split-name2" autocomplete="off">
+    <div id="split-status"></div>
+    <div id="set-actions">
+      <button class="ctl" id="split-cancel">Cancel</button>
+      <button class="ctl" id="split-go" style="background:var(--accent);color:#fff;border-color:var(--accent)">Split</button>
+    </div>
+  </div>
+</div>
+
+<div id="note-overlay">
+  <div id="note-modal">
+    <h2>Add note</h2>
+    <div class="pm-sub" id="note-for"></div>
+    <textarea id="note-text" spellcheck="true" placeholder="What happened on the call…"></textarea>
+    <div id="note-status"></div>
+    <div id="set-actions">
+      <button class="ctl" id="note-cancel">Cancel</button>
+      <button class="ctl" id="note-save" style="background:var(--accent);color:#fff;border-color:var(--accent)">Add to calendar</button>
+    </div>
+  </div>
+</div>
+
+<div id="loom-overlay">
+  <div id="loom-modal">
+    <h2>Download Loom</h2>
+    <div class="pm-sub">Paste one Loom link or several. Call Studio downloads each as <b id="loom-kind">an mp3 (audio only)</b> named <b>LOOM_…</b>, saves it in <b>Desktop › Call Studio Exports › Loom</b> and adds it to your call list. <span style="opacity:.8">Audio or video: change it in ⚙️ Settings.</span></div>
+    <textarea id="loom-url" rows="3" placeholder="https://www.loom.com/share/…&#10;Paste several (one per line) — they download one after another. Enter adds them." autocomplete="off" spellcheck="false"></textarea>
+    <div id="loom-status"></div>
+    <ol id="loom-queue" style="display:none"></ol>
+    <div id="set-actions">
+      <button class="ctl" id="loom-close">Close</button>
+      <button class="ctl" id="loom-go" style="background:var(--accent);color:#fff;border-color:var(--accent)">＋ Add to queue</button>
+    </div>
+  </div>
+</div>
+
+<div id="paste-overlay">
+  <div id="paste-modal">
+    <h2>Paste clips</h2>
+    <div class="pm-sub">Paste a message that says what to watch, for example “Minute 16:30–18:00 – Finance objection”. Each line becomes a clip, and you check them before they are added.</div>
+    <textarea id="paste-text" spellcheck="false" placeholder="Minute 16:30–18:00 – Finance objection&#10;Minute 29:00–31:00 – Finance objection&#10;Minute 45:00–48:00 – Really important challenge"></textarea>
+    <div id="paste-opts">
+      <label>For call <select id="paste-call"></select></label>
+      <label class="pm-opt"><input type="checkbox" id="paste-ai"> Use AI <small>(for messy text, or a message that names several calls)</small></label>
+      <button class="ctl" id="paste-read">Read it</button>
+    </div>
+    <div id="paste-status"></div>
+    <div id="paste-preview"></div>
+    <div id="paste-actions">
+      <button class="ctl" id="paste-close">Close</button>
+      <button class="ctl" id="paste-set-ab" disabled title="Put these clips on the player's slider as A–B, C–D, E–F… so you can play and tweak them there (the titles aren't kept; use Add to clips for that)">Set as A–B, C–D…</button>
+      <button class="ctl" id="paste-add" disabled style="background:var(--accent);color:#fff;border-color:var(--accent)">Add to clips</button>
+    </div>
+  </div>
+</div>
+
+<div id="phone-overlay">
+  <div id="phone-modal">
+    <h2>Export for phone</h2>
+    <div class="pm-sub">One .zip for the Call Studio phone app: calls, sections, closers, transcripts and (optionally) the audio.</div>
+    <label class="pm-opt"><input type="radio" name="pm-scope" id="pm-scope-sel"> <span id="pm-scope-sel-text">Selected calls</span></label>
+    <label class="pm-opt"><input type="radio" name="pm-scope" id="pm-scope-all" checked> <span id="pm-scope-all-text">All calls</span></label>
+    <label class="pm-opt pm-gap"><input type="checkbox" id="pm-audio" checked> Include the audio <small>(untick for a tiny "info only" update: new marks, closers and sections, no audio)</small></label>
+    <div id="pm-status"></div>
+    <div id="pm-actions">
+      <button class="ctl" id="pm-close">Close</button>
+      <button class="ctl" id="pm-go" style="background:var(--accent);color:#fff;border-color:var(--accent)">Export</button>
+    </div>
+  </div>
+</div>
+
+<div id="notes-modal-overlay">
+  <div id="notes-modal">
+    <h2>SPIN Notes</h2>
+    <textarea id="notes-textarea" placeholder="Paste closer summary / SPIN notes here…"></textarea>
+    <div id="notes-modal-actions">
+      <button class="ctl" id="notes-cancel">Cancel</button>
+      <button class="ctl" id="notes-save">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Plain (non-module) scripts: they share one global scope, exactly as when this was a single inline
+     <script>, so ORDER MATTERS -- later files use things earlier ones define, and main.js (page start-up)
+     must stay last. -->
+<script src="/static/js/shared.js"></script>
+<script src="/static/js/tab-registry.js"></script>
+<script src="/static/js/core.js"></script>
+<script src="/static/js/ui.js"></script>
+<script src="/static/js/ab-markers.js"></script>
+<script src="/static/js/people.js"></script>
+<script src="/static/js/links.js"></script>
+<script src="/static/js/notes-qa.js"></script>
+<script src="/static/js/transcript.js"></script>
+<script src="/static/js/followup.js"></script>
+<script src="/static/js/player.js"></script>
+<script src="/static/js/upload.js"></script>
+<script src="/static/js/jobs-compact.js"></script>
+<script src="/static/js/context-menu.js"></script>
+<script src="/static/js/export-dialog.js"></script>
+<script src="/static/js/clips.js"></script>
+<script src="/static/js/ab-ranges.js"></script>
+<script src="/static/js/clip-paste.js"></script>
+<script src="/static/js/phone-export.js"></script>
+<script src="/static/js/settings.js"></script>
+<script src="/static/js/mail.js"></script>
+<script src="/static/js/queue-panel.js"></script>
+<script src="/static/js/notify.js"></script>
+<script src="/static/js/loom.js"></script>
+<script src="/static/js/live-pdf.js"></script>
+<script src="/static/js/live-notes.js"></script>
+<script src="/static/js/live-dock.js"></script>
+<script src="/static/js/external-links.js"></script>
+<script src="/static/js/live-call.js"></script>
+<script src="/static/js/hover-prefs.js"></script>
+<script src="/static/js/followup-match.js"></script>
+<script src="/static/js/followup-list.js"></script>
+<script src="/static/js/tracker-data.js"></script>
+<script src="/static/js/tracker-charts.js"></script>
+<script src="/static/js/shelf.js"></script>
+<script src="/static/js/book-search.js"></script>
+<script src="/static/js/tracker-sheet.js"></script>
+<script src="/static/js/tracker-tab.js"></script>
+<script src="/static/js/tracker-history.js"></script>
+<script src="/static/js/tracker-hover.js"></script>
+<script src="/static/js/tracker-layout.js"></script>
+<script src="/static/js/tracker-log-dialog.js"></script>
+<script src="/static/js/tab-order.js"></script>
+<script src="/static/js/tab-layout.js"></script>
+<script src="/static/js/live-zoom.js"></script>
+<script src="/static/js/volume-boost.js"></script>
+<script src="/static/js/tracker-stats.js"></script>
+<script src="/static/js/day-plan.js"></script>
+<script src="/static/js/checklist.js"></script>
+<script src="/static/js/sales-checklist.js"></script>
+<script src="/static/js/study-notes.js"></script>
+<script src="/static/js/content-ideas.js"></script>
+<script src="/static/js/swipe-gallery.js"></script>
+<script src="/static/js/tab-hotkeys.js"></script>
+<script src="/static/js/settings-tab.js"></script>
+<script src="/static/js/records.js"></script>
+<script src="/static/js/networking.js"></script>
+<script src="/static/js/planner.js"></script>
+<script src="/static/js/voice-settings.js"></script>
+<script src="/static/js/calendar-accounts.js"></script>
+<script src="/static/js/notebook-font.js"></script>
+<script src="/static/js/pending-calls.js"></script>
+<script src="/static/js/settings-layout.js"></script>
+<script src="/static/js/command-palette.js"></script>
+<script src="/static/js/roadmap-diagram.js"></script>
+<script src="/static/js/roadmap-views.js"></script>
+<script src="/static/js/roadmap.js"></script>
+<script src="/static/js/workouts.js"></script>
+<script src="/static/js/content-items.js"></script>
+<script src="/static/js/transcript-search.js"></script>
+<script src="/static/js/journal.js"></script>
+<script src="/static/js/journal-typed.js"></script>
+<script src="/static/js/learning-typed-pages.js"></script>
+<script src="/static/js/hover-peek.js"></script>
+<script src="/static/js/aloware-today.js"></script>
+<script src="/static/js/search.js"></script>
+<script src="/static/js/app-shell.js"></script>
+<script src="/static/js/studio-visual.js"></script>
+<script src="/static/js/main.js"></script>
+<script type="module" src="/static/modern/modern-app.js"></script>
+</body>
+</html>
